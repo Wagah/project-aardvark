@@ -1,0 +1,19 @@
+{
+  "name": "project-aardvark",
+  "version": "1.0.0",
+  "description": "\"This is a movie listing site\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"Hello world\""
+  },
+  "keywords": [
+    "\"Movie\"",
+    "\"imdb\""
+  ],
+  "author": "Vincent Wagah",
+  "license": "MIT",
+  "dependencies": {
+    "dispatch": "^1.0.0",
+    "dispatcher": "0.0.2"
+  }
+}
