@@ -14,6 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "dispatch": "^1.0.0",
-    "dispatcher": "0.0.2"
+    "dispatcher": "0.0.2",
+    "mongoose": "^4.2.6"
   }
 }
