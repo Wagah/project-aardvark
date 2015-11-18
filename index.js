@@ -3,6 +3,34 @@ var http = require('http');
 var dispatch = require('dispatch');
 //include mongoose
 
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/terrific-tuesday');
+
+// create a schema
+var pizzaSchema = mongoose.Schema({
+	name: String,
+	price: Number,
+	created_at: {type: Date, default: Date.now()}
+
+});
+
+//Compile our model
+
+var Pizza = mongoose.model('Pizza', pizzaSchema);
+
+//Using the model-you must create a new instance of it(pizza new instance with small p)
+
+var pizza = new Pizza({name:'Vegetarian', price:1000});
+
+//create the document = 
+ pizza.save(function(err, pizza){
+ 	if(err){
+ 		return console.error('Your pizza was not saved:', pizza);
+ 	}
+ 	console.log('Your pizza was successfully saved :)');
+ });
+
 
 var server = http.createServer(
 				dispatch({
