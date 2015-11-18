@@ -1,81 +1,106 @@
 var http = require('http');
 
 var dispatch = require('dispatch');
+var querystring = require('querystring');
+
 //include mongoose
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/terrific-tuesday');
+mongoose.connect('mongodb://localhost/project-aardvark');
 
-// create a schema
-var pizzaSchema = mongoose.Schema({
-	name: String,
-	price: Number,
-	created_at: {type: Date, default: Date.now()}
 
-});
+//Define our schema
+var movieSchema = mongoose.Schema({
+		name:String,
+		year_of_relaese:Number
 
+})
 //Compile our model
 
-var Pizza = mongoose.model('Pizza', pizzaSchema);
+var Movie = mongoose.model('Movie', movieSchema);
 
-//Using the model-you must create a new instance of it(pizza new instance with small p)
-
-var pizza = new Pizza({name:'Vegetarian', price:1000});
-
-//create the document = 
- pizza.save(function(err, pizza){
- 	if(err){
- 		return console.error('Your pizza was not saved:', pizza);
- 	}
- 	console.log('Your pizza was successfully saved :)');
- });
-
-
+// static database
 var server = http.createServer(
 				dispatch({
-					'/': function(request, response){
-						console.log('Visiting %s', request.url);
-						response.end('This is the root');
-						  },
+					
+					'/movies' : {
 
-					'/movies': function(request, response){
-						console.log('Visiting %s', request.url);
-						response.end('This is the movie path');
-					      },
+						'GET /' :function(request, response){
+							movies = [
+							{
+										title: 'Suits',
+										category: ['Drama','Investigative','Romance'],
+										main_actors: [{
+												first_name: 'Harvey',
+												second_name: 'Lawis'
 
-					'/actors': function(request, response){
-						console.log('Visiting %s', request.url);
-						response.end('This is the actors path');
-					     }
-				})
-			);
+										},{
+												first_name: 'Micheal',
+												second_name:'Ross'
+										}]
 
-var server = http.createServer(
-				dispatch({
-					'/': function(request, response){
-						message = {
-							type: 'customer',
-							text:'Hi how are you'
-						};
-							response.writeHead(200, {
-								'Content-type':'application/json',
-								'Access-Control-Allow-Origin':'http://127.0.0.1:9000'
-								
+										
+									},
+									{
+										title: 'Constant Gardener',
+										category: ['Drama','Mystery','Romance'],
+										main_actors: [{
+												first_name: 'Maley',
+												second_name: 'Rick'
+										},
+										{
+												first_name:'Ralph',
+												second_name:'Davis'
+
+
+										}]
+
+										
+									},
+									{
+										title: 'Beyond the Horizon',
+										category: ['Biography','Drama','Romance'],
+										main_actors: [{
+												first_name: 'Maley',
+												second_name: 'Dowen'
+										},{}]
+
+										
+									}
+							]
+
+							response.end(JSON.stringify(movies));
+						},
+						//Creating a dynamic database
+						'POST /':function(request,response){
+							//Get parameters from the form
+							formData = '',
+							request.on('data',function(chunk){
+								formData = querystring.parse(chunk.toString());
 							});
-							response.end(JSON.stringify(message));
+							
+							request.on('end', function(){
+								console.log(formData);
+							//Create an instance of movie
+								var movie = new Movie(
+								{
 
-						  },
+								title: formData.title,
+								year_of_release: formData.year_of_release
+							}
+							);
 
-					'/movies': function(request, response){
-						console.log('Visiting %s', request.url);
-						response.end('This is the movie path');
-					      },
+							//Save the movie instance
+							//If successful the respond will be saved 
 
-					'/actors': function(request, response){
-						console.log('Visiting %s', request.url);
-						response.end('This is the actors path');
-					     }
+								response.end('Movie was posted')
+							});
+						}
+					}
+
+
+
 				})
 			);
 
