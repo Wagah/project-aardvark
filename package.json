@@ -13,8 +13,10 @@
   "author": "Vincent Wagah",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "dispatch": "^1.0.0",
     "dispatcher": "0.0.2",
+    "express": "^4.13.3",
     "mongoose": "^4.2.6"
   }
 }
