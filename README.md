@@ -82,7 +82,7 @@ GET/photo/19*
 
 ## Using REST in a web Application
 1. Client sends a  request: 'GET /movie/198'
-2.THe server's router maps that request and the verb to a cvontroller's action:
+2.THe server's router maps that request and the verb to a controller's action:
 --------
 The request /movie/198 would be mapped to a controller called movie which would have an a action called  show a handle that request.
 3.The show action will communicate with the Movie Model and the query it for a movie with the id 198
@@ -188,3 +188,10 @@ Mongoose provides a validation and modeling layer to the app. It also adds some 
 
 git IGNORE
 -Use no ignore rather than be in version control: configurations, password
+
+mongodb - open source doc. database that provide high performance, high availability and automatic scaling.
+
+
+INSTALLING YEOMAN
+-npm install -g yo bower grunt-cli gulp
+-It has been installed in the project-"introduction to bootstrap" file
