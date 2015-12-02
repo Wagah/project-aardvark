@@ -1,7 +1,3 @@
-var http = require('http');
-
-var dispatch = require('dispatch');
-var querystring = require('querystring');
 
 //Express
 var express = require('express');
@@ -72,93 +68,23 @@ movie.save(function(err,movie){
 
  });
 
+app.get('/movies/:id', function(req, res) {
+  movieId = req.params.id;
+
+//Retrieve the movie from mongodb- we gona require mongoose
+Movie.findById(movieId, function (err, movie) {
+	if(err) return console.log(err);
+
+	res.json(movie);
+
+	});
 
 
 
-// static database
-// var server = http.createServer(
-// 				dispatch({
-					
-// 					'/movies' : {
-
-// 						'GET /' :function(request, response){
-// 							movies = [
-// 							{
-// 										title: 'Suits',
-// 										category: ['Drama','Investigative','Romance'],
-// 										main_actors: [{
-// 												first_name: 'Harvey',
-// 												second_name: 'Lawis'
-
-// 										},{
-// 												first_name: 'Micheal',
-// 												second_name:'Ross'
-// 										}]
-
-										
-// 									},
-// 									{
-// 										title: 'Constant Gardener',
-// 										category: ['Drama','Mystery','Romance'],
-// 										main_actors: [{
-// 												first_name: 'Maley',
-// 												second_name: 'Rick'
-// 										},
-// 										{
-// 												first_name:'Ralph',
-// 												second_name:'Davis'
+});
 
 
-// 										}]
-
-										
-// 									},
-// 									{
-// 										title: 'Beyond the Horizon',
-// 										category: ['Biography','Drama','Romance'],
-// 										main_actors: [{
-// 												first_name: 'Maley',
-// 												second_name: 'Dowen'
-// 										},{}]
-
-										
-// 									}
-// 							]
-// 							console.log('Movies GET /')
-// 							response.end(JSON.stringify(movies));
-// 						},
-// 						//Creating a dynamic database
-// 						'POST /':function(request,response){
-// 							//Get parameters from the form
-// 							formData = '',
-// 							request.on('data',function(chunk){
-// 								formData = querystring.parse(chunk.toString());
-// 							});
-							
-// 							request.on('end', function(){
-// 								console.log(formData);
-// 							//Create an instance of movie
-// 								var movie = new Movie(
-// 								{
-
-// 								title: formData.title,
-// 								year_of_release: formData.year_of_release
-// 							}
-// 							);
-
-							//Save the movie instance
-							//If successful the respond will be saved 
-
-				// 				response.end('Movie was posted')
-				// 			});
-				// 		}
-				// 	}
-
-
-
-				// })
-// 			);
-
+			
 app.listen(8082,function(){
 	console.log('Server running on 127.0.0.1:8082');
 
