@@ -1,5 +1,7 @@
+
 //Express
 var express = require('express');
+var cons = require("consolidate");//we require the consolidae here
 var app = express();
 
 
@@ -17,7 +19,8 @@ mongoose.connect('mongodb://localhost/project-aardvark');
 var movieSchema = mongoose.Schema({
     title: String,
     year_of_release: Number,
-    rating: {type: Number, default: 0, min: 0, max: 10}
+    rating: {type: Number, default: 0, min: 0, max: 10},
+    url: String
     //the schema is first updated before sending the update request
 
 })
@@ -30,19 +33,27 @@ app.use(function(req, res, next) {
 
 var Movie = mongoose.model('Movie', movieSchema);
 
+//EXpress setting
+app.engine('html', cons.liquid);
 
+app.set('views', './views');
+app.set('view engine', 'html');
+
+//Express middleware
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 //the movie array which was initially here has been added in the databse using POSTMAN and then deleted.
 
 app.get('/movies', function(req, res) {
-    Movie.find(function(err, movie) {
+    Movie.find()
+    	.select("title year_of_release rating")
+    	.exec(function(err, movies) {
         if (err) {
-            console.log(err)
+            console.log(err);
         } else {
-
-            res.json(movie);
+        	res.render('index',{"movies": movies});
+            // res.json(movies);
 
         }
 
