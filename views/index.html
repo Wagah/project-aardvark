@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Movie lissting</title>
+    <title>Movie listing</title>
 </head>
     <body>
     <h1>Movie listing</h1>
@@ -15,7 +15,7 @@
                <tbody>
                {% for movie in movies %}
                    <tr>
-                       <td><a href="/movies/">{{movie.title}}</td>
+                       <td><a href="/movies/{{movie._id}}">{{movie.title}}</td>
                        <td>{{movie.year_of_release}}</td>
                        <td>{{movie.rating}}</td>
                    </tr> 
