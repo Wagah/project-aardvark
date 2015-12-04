@@ -20,7 +20,8 @@ var movieSchema = mongoose.Schema({
     title: String,
     year_of_release: Number,
     rating: {type: Number, default: 0, min: 0, max: 10},
-    url: String
+    url: String,
+    director: String
     //the schema is first updated before sending the update request
 
 })
@@ -45,9 +46,15 @@ app.use(bodyParser.urlencoded({
 }));
 //the movie array which was initially here has been added in the databse using POSTMAN and then deleted.
 
+app.get('/movies/new', function(req, res){
+
+    res.render('new');
+
+});
+
 app.get('/movies', function(req, res) {
     Movie.find()
-    	.select("title year_of_release rating")
+    	.select("title year_of_release rating director")
     	.exec(function(err, movies) {
         if (err) {
             console.log(err);
@@ -61,8 +68,9 @@ app.get('/movies', function(req, res) {
 
 });
 
+
 //The following is the route of changing movie or adding a new
-app.post('/movies/new', function(req, res) {
+app.post('/movies', function(req, res) {
     console.log(req.body);
     formData = req.body;
 
