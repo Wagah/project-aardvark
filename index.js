@@ -1,7 +1,7 @@
 
 //Express
 var express = require('express');
-var cons = require("consolidate");//we require the consolidae here
+var cons = require("consolidate");//we require the consolidate here
 var app = express();
 
 
@@ -24,7 +24,7 @@ var movieSchema = mongoose.Schema({
     director: String
     //the schema is first updated before sending the update request
 
-})
+});
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -49,17 +49,32 @@ app.use(bodyParser.urlencoded({
 app.get('/movies/new', function(req, res){
 
     res.render('new');
+});
+
+app.get('/movies/:id/edit', function(req, res) {
+    movieId = req.params.id;
+    //To refill the content of the movie before editing
+    Movie.findById(movieId, function(err, movie) {
+        if (err) return console.log(err);
+        res.render('edit',{"movie": movie});
+        // res.json(movie);
+
+    });
 
 });
+    
+   //Retrieve the movie from mongodb- we gona require mongoose
+    
+
 
 app.get('/movies', function(req, res) {
     Movie.find()
-    	.select("title year_of_release rating director")
-    	.exec(function(err, movies) {
+        .select("title year_of_release rating director")
+        .exec(function(err, movies) {
         if (err) {
             console.log(err);
         } else {
-        	res.render('index',{"movies": movies});
+            res.render('index',{"movies": movies});
             // res.json(movies);
 
         }
@@ -67,7 +82,6 @@ app.get('/movies', function(req, res) {
     });
 
 });
-
 
 //The following is the route of changing movie or adding a new
 app.post('/movies', function(req, res) {
@@ -117,7 +131,8 @@ app.put('/movies/:id', function(req, res) {
 
         movie.save(function(err,movie){
         	if(err) return console.log(err);
-        	res.json(movie);
+        	res.redirect('/movies');
+            //Instead of the res with.json, we respond with redirect to the movie listing
         });
 
     });
