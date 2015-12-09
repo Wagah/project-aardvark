@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>{{movie.title}}</title>
+    <title>{{movie.title}}</title>
 </head>
+
 <body>
-<h1>{{movie.title}}</h1>
-	<p>Released in:{{movie.year_of_release}}</p>
-	<p>Rating:{{movie.rating}}</p>
-	<p>Director:{{movie.director}}</p>
-	<p>Movie Editable Section</p>
-<a href="/movies/{{movie._id}}/edit">Edit Movie</td>
+{% include "navbar" %}
+    <h1>{{movie.title}}</h1>
+    <p>Released in:{{movie.year_of_release}}</p>
+    <p>Rating:{{movie.rating}}</p>
+    <p>Director:{{movie.director}}</p>
+    <a href="/movies/{{movie._id}}/edit">Edit Movie</td><br>
+    <br>
+     <a href="/movies/{{movie._id}}/delete">Delete Movie</td>
 </body>
 </html>

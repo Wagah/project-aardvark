@@ -195,3 +195,8 @@ mongodb - open source doc. database that provide high performance, high availabi
 INSTALLING YEOMAN
 -npm install -g yo bower grunt-cli gulp
 -It has been installed in the project-"introduction to bootstrap" file
+ 
+
+ //Note
+ -carlypso
+ Jquery.ajax
