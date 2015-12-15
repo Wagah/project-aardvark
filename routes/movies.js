@@ -2,6 +2,15 @@
 //we define and require express
 
 var express = require('express');
+// var app = express();
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
+
+
 var router = express.Router();
 var Movie = require('../models/movie');
 
@@ -13,10 +22,10 @@ router.route('/movies')
                 if (err) {
                     console.log(err);
                 } else {
-                    res.render('index', {
-                        "movies": movies
+                    res.render('movies/index', {
+                       "movies": movies
                     });
-                    // res.json(movies);
+                     // res.json(movies);
                 }
 
             });
@@ -45,7 +54,7 @@ router.route('/movies')
 
 router.route('/movies/new')
     .get(function(req, res) {
-        res.render('new');
+        res.render('./movies/new');
     });
 
 
@@ -55,9 +64,9 @@ router.route('/movies/:id')
         //Retrieve the movie from mongodb- we gona require mongoose
         Movie.findById(movieId, function(err, movie) {
             if (err) return console.log(err);
-            res.render('detail', {
-                "movie": movie
-            });
+            res.render('./movies/detail', {
+               "movie": movie
+           });
             // res.json(movie);
         });
     })
@@ -75,7 +84,7 @@ router.route('/movies/:id/edit')
         //To refill the content of the movie before editing
         Movie.findById(movieId, function(err, movie) {
             if (err) return console.log(err);
-            res.render('edit', {
+            res.render('./movies/edit', {
                 "movie": movie
             });
             // res.json(movie);
@@ -115,7 +124,8 @@ function updateMovie(method, req, res) {
             if (err) return console.log(err);
             if (method === 'PUT') {
                 res.json(movie);
-            } else {
+            }
+             else {
                 res.redirect('/movies/' + movie._id);
 
             };

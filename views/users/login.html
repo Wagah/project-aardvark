@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<body>
+       <!--  <p>{{error}}</p> -->
+	<form action="/login" method="post">
+        <label for="">Username:</label>
+        <input type="text" name="username" value="{{user.username}}" placeholder="username"/>
+        <br>
+        <label for="">Password</label>
+        <input type="password" name="password" placeholder="password" />
+        <br>
+        <button type="submit">Login</button>        
+	</form>
+</body>
+</html>

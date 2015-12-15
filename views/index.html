@@ -2,28 +2,13 @@
 <html>
 
 <head>
-    <title>Movie listing</title>
+    <title>I like Movies</title>
 </head>
 
 <body>
-    {% include "navbar" %}
-    <h1>Movie listing</h1>
-    <table>
-        <thead>
-            <th>Title</th>
-            <th>Director</th>
-            <th>Year of release</th>
-            <th>Rating</th>
-        </thead>
-        <tbody>
-            {% for movie in movies %}
-            <tr>
-                <td><a href="/movies/{{movie._id}}">{{movie.title}}</td>
-                       <td>{{movie.year_of_release}}</td>
-                       <td>{{movie.rating}}</td>
-                   </tr> 
-                   {% endfor %}           
-                </tbody>
-            </table>
-    </body>
+    {% include 'navbar'%} {% if user %}
+    <h1>Welcome back {{ user.username}}</h1> {% else %}
+    <a href="/login">Login</a> {% endif %}
+</body>
+
 </html>

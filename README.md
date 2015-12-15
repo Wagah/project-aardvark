@@ -200,3 +200,5 @@ INSTALLING YEOMAN
  //Note
  -carlypso
  Jquery.ajax
+ Jquery.post
+ making code reusable

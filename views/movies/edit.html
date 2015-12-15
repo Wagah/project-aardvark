@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Editable section</title>
+</head>
+
+<body>
+    {% include "navbar" %}
+    <p>Edit movie</p>
+    <form action="/movies/{{movie._id}}/edit" method="POST">
+        <label for="">Title:</label>
+        <input type="text" value="{{movie.title}}" name="title" placeholder="title" />
+        <br>
+        <label for="">Director:</label>
+        <input type="text" value="{{movie.director}}" name="director" placeholder="director" />
+        <br>
+        <label for="">Rating:</label>
+        <input type="number" value="{{movie.rating}}" name="rating" placeholder="rating" />
+        <br>
+        <label for="">Release in:</label>
+        <input type="text" value="{{movie.year_of_release}}" name="year_of_release" placeholder="year of release" />
+        <br>
+        <div class="button">
+            <button type="submit">Add movie</button>
+        </div>
+</body>
+
+</html>
