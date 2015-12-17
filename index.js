@@ -24,7 +24,15 @@ var bodyParser = require('body-parser');
 
 //include mongoose
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/project-aardvark');
+var uristring =
+	process.env.MONGOLAB_URI ||
+	process.env.MONGOHQ_URL ||
+'mongodb://localhost/project-aardvark';
+mongoose.connect(uristring, function(err, res){
+	if(err){
+		consle.log('Error connecting to:', uristring);
+		}
+});
 
 
 //Express setting
