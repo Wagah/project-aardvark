@@ -30,7 +30,7 @@ var uristring =
 'mongodb://localhost/project-aardvark';
 mongoose.connect(uristring, function(err, res){
 	if(err){
-		consle.log('Error connecting to:', uristring);
+		console.log('Error connecting to:', uristring);
 		}
 });
 
